@@ -26,7 +26,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.BytesRef;
 
 public class Util {
-  
+
   public static String xmlEscape(String in) {
     if (in == null) return "";
     StringBuilder sb = new StringBuilder(in.length());
@@ -54,7 +54,7 @@ public class Util {
     }
     return sb.toString();
   }
-  
+
   public static String bytesToHex(BytesRef bytes, boolean wrap) {
     return bytesToHex(bytes.bytes, bytes.offset, bytes.length, wrap);
   }
@@ -156,7 +156,7 @@ public class Util {
     }
     return sb.toString();
   }
-  
+
   public static Collection<String> fieldNames(IndexReader r, boolean indexedOnly) throws IOException {
     AtomicReader reader;
     if (r instanceof CompositeReader) {
@@ -175,7 +175,7 @@ public class Util {
     }
     return res;
   }
-  
+
   public static float decodeNormValue(byte v, String fieldName, TFIDFSimilarity sim) throws Exception {
     try {
       return sim.decodeNormValue(v);
@@ -183,13 +183,29 @@ public class Util {
       throw new Exception("ERROR decoding norm for field "  + fieldName + ":" + e.toString());
     }
   }
-  
+
+    /**
+     * Encodes a normalization factor for storage in an index.
+     * for Similarity: The encoding uses a three-bit mantissa, a five-bit exponent, and the zero-exponent point at 15,
+     *  thus representing values from around 7x10^9 to 2x10^-9 with about one significant decimal digit of accuracy.
+     *  Zero is also represented. Negative numbers are rounded up to zero. Values too large to represent are rounded
+     *  down to the largest representable value. Positive values too small to represent are rounded up to the
+     *  smallest positive representable value.
+     *  YMMV
+     * @param v float value of value
+     * @param fieldName field name for exception message only
+     * @param sim Similarity object to use to do the raw encoding.
+     * @return single byte encoded with similarity
+     * @throws Exception something bad. NPE?
+     */
   public static byte encodeNormValue(float v, String fieldName, TFIDFSimilarity sim) throws Exception {
     try {
-      return sim.encodeNormValue(v);
+        return (byte) sim.encodeNormValue(v);
+//        byte[] theBytes = Longs.toByteArray(sim.encodeNormValue(v));
+//        return theBytes[7];
     } catch (Exception e) {
       throw new Exception("ERROR encoding norm for field "  + fieldName + ":" + e.toString());
-    }    
+    }
   }
 
 
@@ -288,10 +304,10 @@ public class Util {
       flags.append(dvToString(info.getDocValuesType()));
     } else {
       flags.append("----");
-    }    
+    }
     return flags.toString();
   }
-  
+
   private static String dvToString(DocValuesType type) {
     String fl;
     if (type == null) {
@@ -315,7 +331,7 @@ public class Util {
     }
     return fl;
   }
-  
+
   public static Resolution getResolution(String key) {
     if (key == null || key.trim().length() == 0) {
       return Resolution.MILLISECOND;
@@ -335,7 +351,7 @@ public class Util {
     resolutionMap.put(Resolution.MONTH.toString(), Resolution.MONTH);
     resolutionMap.put(Resolution.YEAR.toString(), Resolution.YEAR);
   }
-  
+
   public static long calcTotalFileSize(String path, Directory fsdir) throws Exception {
     long totalFileSize = 0L;
     String[] files = null;

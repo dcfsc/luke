@@ -1,0 +1,65 @@
+# Editor configuration, see http://editorconfig.org
+# See http://stash.fsc.follett.com/projects/COM/repos/project-reference-files/browse/all/.editorconfig for the latest version.
+
+# top-most EditorConfig file
+root = true
+
+# all files unless specified
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# XML 4 space indentation
+[*.xml]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Ansible yml 2 space indentation
+[*.{yml,yml.j2}]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Bash .sh 2 space indentation
+[*.{sh,sh.sample}]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Bash .sh 2 space indentation
+[*.sh.sample]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Jenkinsfiles
+[Jenkinsfile]
+indent_style = space
+indent_size = 2
+
+[*.jenkinsfile]
+indent_style = space
+indent_size = 2
+
+# Dockerfiles
+[Dockerfile]
+indent_style = space
+indent_size = 2
+
+[*.dockerfile]
+indent_style = space
+indent_size = 2
+
+# Markdown .md 4 space indentation for code blocks
+# ending space can be significant. Don't remove.
+[*.md]
+indent_size = 4
+trim_trailing_whitespace = false

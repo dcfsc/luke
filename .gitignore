@@ -1,0 +1,15 @@
+# IntelliJ
+/.idea
+*.iml
+
+# Eclipse
+/.settings/
+.classpath
+.project
+
+# maven
+/target/
+.repository
+
+# Ansible
+*.retry

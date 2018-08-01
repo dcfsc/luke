@@ -1,6 +1,10 @@
+* Update to 4.4.0
+
+Some items were commented out to allow them to compile.
+Some indexes may not open. In testing, some smaller ones opened fine.
+Added test for Util::encodeNormValue.
+
 * Update to 4.3.0
-
-
 
 I (Peter Lenahan) was not sure of the correct solution to a small compile problem.
 I added a try/catch statement just to fix a compile issue.
